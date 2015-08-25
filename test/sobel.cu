@@ -41,6 +41,7 @@ void sobel(
     DeviceImage<float2> &out_grad)
 {
   sobelKernel<<<16, 16>>>(in_img.dev_ptr, out_grad.dev_ptr);
+  cudaDeviceSynchronize();
 }
 
 } // rmd namespace

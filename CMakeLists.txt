@@ -41,7 +41,7 @@ CUDA_ADD_LIBRARY(
 CUDA_ADD_LIBRARY(
     remodetest
     test/copy.cu
-    test/sobel.cu
+ #   test/sobel.cu
 )
 
 ## Declare a cpp executable

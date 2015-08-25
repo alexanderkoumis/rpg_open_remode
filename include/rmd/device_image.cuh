@@ -4,6 +4,8 @@
 #include <cuda_runtime.h>
 #include <rmd/cuda_exception.cuh>
 
+#include <stdio.h>
+
 namespace rmd
 {
 
@@ -24,6 +26,8 @@ struct DeviceImage
       throw CudaException("Image: unable to allocate pitched memory.", err);
 
     stride = pitch / sizeof(ElementType);
+/*
+    printf("w=%d, h=%d, s=%d, sizeof(this)=%d, sizeof(*this)=%d\n", width, height, stride, sizeof(this), sizeof(this));
 
     err = cudaMalloc(
           &dev_ptr,
@@ -38,7 +42,8 @@ struct DeviceImage
           cudaMemcpyHostToDevice);
     if(err != cudaSuccess)
       throw CudaException("DeviceData, cannot copy image parameters to device memory.", err);
-  }
+*/
+}
 
   __device__
   ElementType & operator()(size_t x, size_t y)
@@ -90,9 +95,11 @@ struct DeviceImage
     cudaError err = cudaFree(data);
     if(err != cudaSuccess)
       throw CudaException("Image: unable to free allocated memory.", err);
+    /*
     err = cudaFree(dev_ptr);
     if(err != cudaSuccess)
       throw CudaException("Image: unable to free allocated memory.", err);
+      */
   }
 
   // fields
@@ -101,7 +108,7 @@ struct DeviceImage
   size_t pitch;
   size_t stride;
   ElementType * data;
-  DeviceImage<ElementType> *dev_ptr;
+//  DeviceImage<ElementType> *dev_ptr;
 };
 
 } // namespace rmd
